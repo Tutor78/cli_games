@@ -1,5 +1,3 @@
-
-
 use crate::libs::{main_menu, user_name};
 
 mod libs;
