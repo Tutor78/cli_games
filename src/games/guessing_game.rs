@@ -5,6 +5,8 @@ use crate::menus;
 
 pub fn guessing_game() {
     loop {
+        let mut num_of_guesses = 0;
+
         let difficulty_options = vec!["Easy", "Normal", "Hard"];
 
         let difficulty_select = Select::new("Choose your difficulty!", difficulty_options)
@@ -15,6 +17,8 @@ pub fn guessing_game() {
         let secret_number = difficulty(difficulty_select);
 
         loop {
+            println!("You've guessed {} times!", num_of_guesses);
+
             let player_guess = CustomType::<i32>::new("Try to guess: ")
                 .with_error_message("Please pick a valid number!")
                 .prompt();
@@ -27,6 +31,8 @@ pub fn guessing_game() {
                     break;
                 },
             }
+
+            num_of_guesses = num_of_guesses + 1;
         }
 
         let play_again = Confirm::new("Play again?").prompt();
@@ -37,7 +43,7 @@ pub fn guessing_game() {
         }
     }
 
-    menus::main_menu();
+    menus::menus::main_menu();
 }
 
 fn difficulty(difficulty: String) -> i32 {
