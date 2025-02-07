@@ -27,7 +27,11 @@ pub fn guessing_game() {
                 Ordering::Greater => println!("That number is too big!"),
                 Ordering::Less => println!("That number is too small!"),
                 Ordering::Equal => {
-                    println!("You win!");
+                    if num_of_guesses == 1 {
+                        println!("You won with {} guess!", num_of_guesses);
+                    } else {
+                        println!("You won with {} guesses!", num_of_guesses);
+                    }
                     break;
                 },
             }

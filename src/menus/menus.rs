@@ -27,7 +27,7 @@ pub fn main_menu() {
             if menu == "Guessing Game" {
                 games::guessing_game::guessing_game();
             } else if menu == "Rock, Paper, Scissors" {
-                println!("Welcome to Rock, paper, Scissors!");
+                games::rock_paper_scissors::rock_paper_scissors();
             } else if menu == "Exit Game" {
                 println!("Thanks for playing!");
             }
