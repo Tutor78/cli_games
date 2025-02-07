@@ -1,1 +1,4 @@
-This is going to be a collection of games you can play on the command line.
+This is a collection of simple games built 
+entirely using Rust. It is work in progress and
+I hope to continue adding games and functionality
+as my skills improve.
