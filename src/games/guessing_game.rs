@@ -62,3 +62,51 @@ fn difficulty(difficulty: String) -> i32 {
         rand::rng().random_range(1..=100)
     }
 }
+
+#[test]
+fn easy_difficulty() {
+    let secret_number = difficulty(String::from("Easy"));
+    let in_range: bool;
+
+    if secret_number < 1 {
+        in_range = false;
+    } else if secret_number > 25 {
+        in_range = false;
+    } else {
+        in_range = true;
+    }
+
+    assert!(in_range);
+}
+
+#[test]
+fn normal_difficulty() {
+    let secret_number = difficulty(String::from("Normal"));
+    let in_range: bool;
+
+    if secret_number < 1 {
+        in_range = false;
+    } else if secret_number > 50 {
+        in_range = false;
+    } else {
+        in_range = true;
+    }
+
+    assert!(in_range);
+}
+
+#[test]
+fn hard_difficulty() {
+    let secret_number = difficulty(String::from("Hard"));
+    let in_range: bool;
+
+    if secret_number < 1 {
+        in_range = false;
+    } else if secret_number > 100 {
+        in_range = false;
+    } else {
+        in_range = true;
+    }
+
+    assert!(in_range);
+}
