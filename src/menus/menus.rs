@@ -14,6 +14,7 @@ pub fn main_menu() {
         options: vec![
             "Guessing Game".to_string(),
             "Rock, Paper, Scissors".to_string(),
+            "Hangman".to_string(),
             "Exit".to_string()
         ]
     };
@@ -28,6 +29,8 @@ pub fn main_menu() {
                 games::guessing_game::guessing_game();
             } else if menu == "Rock, Paper, Scissors" {
                 games::rock_paper_scissors::rock_paper_scissors();
+            } else if menu == "Hangman" {
+                games::hangman::game::hangman();
             } else if menu == "Exit Game" {
                 println!("Thanks for playing!");
             }

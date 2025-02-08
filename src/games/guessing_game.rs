@@ -27,6 +27,8 @@ pub fn guessing_game() {
                 Ordering::Greater => println!("That number is too big!"),
                 Ordering::Less => println!("That number is too small!"),
                 Ordering::Equal => {
+                    num_of_guesses += 1;
+
                     if num_of_guesses == 1 {
                         println!("You won with {} guess!", num_of_guesses);
                     } else {
@@ -36,7 +38,7 @@ pub fn guessing_game() {
                 },
             }
 
-            num_of_guesses = num_of_guesses + 1;
+            num_of_guesses += 1;
         }
 
         let play_again = Confirm::new("Play again?").prompt();
