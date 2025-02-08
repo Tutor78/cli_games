@@ -1,6 +1,7 @@
-use inquire::{ Select, Confirm};
+use inquire::{ Select };
 use rand::seq::IndexedRandom;
-use crate::menus;
+use crate::menus::menus::main_menu;
+use crate::utils::utils::play_again;
 
 pub fn rock_paper_scissors () {
     let mut player_wins = 0;
@@ -64,15 +65,11 @@ pub fn rock_paper_scissors () {
             println!("We're tied {} to {}", computer_wins, player_wins);
         }
 
-        let play_again = Confirm::new("Do you want to play again?")
-            .prompt()
-            .unwrap();
-
-        if play_again == false {
+        if play_again() == false {
             println!("Thanks for playing!");
             break;
         }
     }
 
-    menus::menus::main_menu();
+    main_menu();
 }

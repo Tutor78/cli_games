@@ -1,5 +1,6 @@
 use inquire::Text;
 use crate::menus::menus::main_menu;
+use crate::utils::utils::play_again;
 
 pub fn hangman () {
     let word = "Word";
@@ -41,6 +42,10 @@ pub fn hangman () {
 
         if display_vector == word_display {
             println!("You win!");
+        }
+
+        if play_again() == false {
+            println!("Thanks for hanging");
             break;
         }
     }

@@ -1,7 +1,8 @@
-use inquire::{CustomType, Confirm, Select};
+use inquire::{CustomType, Select};
 use rand::{Rng};
 use std::cmp::Ordering;
-use crate::menus;
+use crate::menus::menus::main_menu;
+use crate::utils::utils::play_again;
 
 pub fn guessing_game() {
     loop {
@@ -41,15 +42,15 @@ pub fn guessing_game() {
             num_of_guesses += 1;
         }
 
-        let play_again = Confirm::new("Play again?").prompt();
+        // let play_again = Confirm::new("Play again?").prompt();
 
-        if play_again.unwrap() == false {
+        if play_again() == false {
             println!("Thanks for guessing!");
             break;
         }
     }
 
-    menus::menus::main_menu();
+    main_menu();
 }
 
 fn difficulty(difficulty: String) -> i32 {

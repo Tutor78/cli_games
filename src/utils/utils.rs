@@ -1,4 +1,4 @@
-use inquire::Text;
+use inquire::{Text, Confirm};
 
 pub fn user_name() -> String {
     let player_name = loop {
@@ -15,4 +15,10 @@ pub fn user_name() -> String {
     };
 
     player_name
+}
+
+pub fn play_again() -> bool {
+    let play_again = Confirm::new("Play again?").prompt().unwrap();
+
+    play_again
 }
