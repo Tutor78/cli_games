@@ -52,7 +52,7 @@ pub fn hangman () {
                 i += 1;
             }
 
-            println!("");
+            println!();
 
             if display_vector == word_display {
                 println!("You win!");
