@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "word": "Word",
+    "definition": "The answer is word"
+  },
+  {
+    "id": 2,
+    "word": "Yes",
+    "definition": "The answer is yes"
+  }
+]
