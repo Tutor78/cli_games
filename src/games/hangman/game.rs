@@ -1,4 +1,5 @@
 use inquire::Text;
+use crate::menus::menus::main_menu;
 
 pub fn hangman () {
     let word = "Word";
@@ -7,29 +8,42 @@ pub fn hangman () {
 
     let mut display_vector: Vec<char> = vec!['_'; word_display.len()];
 
-    let player_guess = Text::new("What letter would you like to guess?")
-        .prompt()
-        .unwrap();
+    println!("Your word is {} letters long", display_vector.clone().len());
 
-    let player_letter = player_guess
-        .chars()
-        .next()
-        .unwrap();
+    loop {
+        let player_guess = Text::new("What letter would you like to guess?")
+            .prompt()
+            .unwrap();
 
-    println!("{}", player_letter);
+        let player_letter = player_guess
+            .chars()
+            .next()
+            .unwrap();
 
-    let mut i = 0;
+        println!("You're letter: {}", player_letter);
 
-    for char in word_display {
-        let letter_match = char.to_uppercase().next().unwrap();
-        let player_letter_match = player_letter.to_uppercase().next().unwrap();
+        let mut i = 0;
 
-        if letter_match == player_letter_match {
-            display_vector[i] = char;
+        for char in word_display.clone() {
+            let letter_match = char.to_uppercase().next().unwrap();
+            let player_letter_match = player_letter.to_uppercase().next().unwrap();
+
+            if letter_match == player_letter_match {
+                display_vector[i] = char;
+            }
+
+            print!(" {} ", display_vector[i]);
+
+            i += 1;
         }
 
-        print!(" {} ", display_vector[i]);
+        println!("");
 
-        i += 1;
+        if display_vector == word_display {
+            println!("You win!");
+            break;
+        }
     }
+
+    main_menu();
 }
