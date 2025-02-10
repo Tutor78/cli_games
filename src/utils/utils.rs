@@ -3,15 +3,13 @@ use std::path::{ PathBuf };
 use inquire::{Text, Confirm, Select};
 use directories::BaseDirs;
 use rusqlite::{Connection, Result};
-use rusqlite::fallible_iterator::FallibleIterator;
 
 #[derive(Debug)]
 struct User {
-    id: i32,
     username: String,
 }
 
-pub fn user_name() -> String {
+fn create_profile() -> User {
     let player_name = loop {
         let name_input = Text::new("Before we begin, what is your name?")
             .prompt();
@@ -25,7 +23,9 @@ pub fn user_name() -> String {
         }
     };
 
-    player_name
+    let user = User { username: player_name };
+
+    user
 }
 
 pub fn play_again() -> bool {
@@ -51,7 +51,7 @@ pub fn create_db() -> Result<()> {
     let conn = Connection::open(path)?;
 
     conn.execute(
-        "CREATE TABLE IF NOT EXISTS user (id INTEGER PRIMARY KEY, username TEXT NOT NULL)",
+        "CREATE TABLE IF NOT EXISTS user (username TEXT NOT NULL PRIMARY KEY)",
         (),
     )?;
 
@@ -82,4 +82,36 @@ fn path_to_data_dir() -> PathBuf {
     let dir_path = path.join("Rusty Games").join("data");
 
     dir_path
+}
+
+pub fn add_user_to_db() -> Result<()> {
+    let path = path_to_db();
+    let conn = Connection::open(path)?;
+
+    let user = create_profile();
+
+    conn.execute(
+        "INSERT INTO user (username) VALUES (?1)",
+        (&user.username,),
+    )?;
+
+    Ok(())
+}
+
+pub fn recall_db_data() -> Result<()> {
+    let path = path_to_db();
+    let conn = Connection::open(path)?;
+
+    let mut stmt = conn.prepare("SELECT username FROM user")?;
+    let user_iter = stmt.query_map([], |row| {
+        Ok(User {
+            username: row.get(0)?,
+        })
+    })?;
+
+    for user in user_iter {
+        println!("Found user: {:?}", user?);
+    }
+
+    Ok(())
 }

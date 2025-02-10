@@ -1,5 +1,6 @@
 use crate::games;
 use inquire::Select;
+use crate::utils::utils::{add_user_to_db, recall_db_data};
 
 struct Menu {
     title: String,
@@ -12,6 +13,7 @@ pub fn main_menu() {
         title: String::from("Main Menu"),
         message: String::from("What would you like to play?").into(),
         options: vec![
+            "Profiles".to_string(),
             "Guessing Game".to_string(),
             "Rock, Paper, Scissors".to_string(),
             "Hangman".to_string(),
@@ -33,10 +35,40 @@ pub fn main_menu() {
                 games::hangman::game::hangman();
             } else if menu == "Exit Game" {
                 println!("Thanks for playing!");
+            } else if menu == "Profiles" {
+                profile_menu();
             }
         }
         Err(_) => {
             println!("There was an error!");
         }
     }
+}
+
+fn profile_menu() {
+    let profile_menu = Menu {
+        title: String::from("Profiles"),
+        message: String::from("What would you like to do?").into(),
+        options: vec![
+            "Create Profile".to_string(),
+            "Recall Profiles".to_string(),
+        ]
+    };
+
+    let menu_choice = Select::new(&profile_menu.message, profile_menu.options).prompt();
+
+    match menu_choice {
+        Ok(menu) => {
+            if menu == "Create Profile" {
+                add_user_to_db().expect("Unable to add user to db");
+            } else if menu == "Recall Profiles" {
+                recall_db_data().expect("Unable to retrieve db data");
+            }
+        }
+        Err(_) => {
+            println!("There was an error!");
+        }
+    }
+
+    main_menu();
 }
