@@ -88,7 +88,7 @@ pub fn hangman () {
 }
 
 fn dictionary() -> Vec<Word> {
-    let json_file = Path::new("./src/games/hangman/text.json");
+    let json_file = Path::new("./data/dictionary.json");
     let file = File::open(json_file).unwrap();
 
     let dictionary: Vec<Word> = serde_json::from_reader(file)
@@ -99,7 +99,7 @@ fn dictionary() -> Vec<Word> {
 
 fn random_word() -> Word {
     let dictionary = dictionary();
-    let random_num = rand::rng().random_range(0..=dictionary.len() as i32);
+    let random_num = rand::rng().random_range(1..=dictionary.len() as i32);
 
     let mut random_word: Word = Word {
         id: 0,
