@@ -1,6 +1,6 @@
 use inquire::Text;
-use std::fs::File;
-use std::path::Path;
+// use std::fs::File;
+// use std::path::Path;
 use serde::{Serialize, Deserialize};
 use rand::Rng;
 use crate::menus::menus::main_menu;
@@ -88,10 +88,9 @@ pub fn hangman () {
 }
 
 fn dictionary() -> Vec<Word> {
-    let json_file = Path::new("./data/dictionary.json");
-    let file = File::open(json_file).unwrap();
+    let json_file = include_str!("../../../data/dictionary.json");
 
-    let dictionary: Vec<Word> = serde_json::from_reader(file)
+    let dictionary: Vec<Word> = serde_json::from_str(json_file)
         .expect("Error while reading file");
 
     dictionary
