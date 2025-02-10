@@ -1,6 +1,4 @@
 use inquire::Text;
-// use std::fs::File;
-// use std::path::Path;
 use serde::{Serialize, Deserialize};
 use rand::Rng;
 use crate::menus::menus::main_menu;
