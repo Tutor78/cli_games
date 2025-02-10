@@ -61,8 +61,6 @@ pub fn hangman () {
 
             if max_guesses > 3 {
                 println!("{} guesses left", max_guesses );
-            } else if max_guesses <= 3 && max_guesses > 1 {
-                println!("{} guesses left", max_guesses );
             } else if max_guesses == 1 {
                 println!("{} guess left", max_guesses);
             } else if max_guesses == 0 {
