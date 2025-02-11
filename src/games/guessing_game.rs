@@ -10,9 +10,11 @@ pub fn guessing_game() {
 
         let secret_num: i32;
 
-        if difficulty() == "Easy" {
+        let difficulty = difficulty("test", "test2", "test3");
+
+        if difficulty == "Easy" {
             secret_num = rand::rng().random_range(1..=25);
-        } else if difficulty() == "Normal" {
+        } else if difficulty == "Normal" {
             secret_num = rand::rng().random_range(1..=50).into();
         } else {
             secret_num = rand::rng().random_range(1..=100).into();

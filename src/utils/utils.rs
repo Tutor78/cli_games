@@ -41,15 +41,29 @@ pub fn play_again() -> bool {
     play_again
 }
 
-pub fn difficulty() -> String {
-    let difficulty_options = vec!["Easy", "Normal", "Hard"];
+pub fn difficulty(easy_desc: &str, normal_desc: &str, hard_desc: &str) -> String {
+    let mut easy = String::new();
+    easy.push_str("Easy: ");
+    easy.push_str(&easy_desc);
+
+    let mut normal = String::new();
+    normal.push_str("Normal: ");
+    normal.push_str(&normal_desc);
+
+    let mut hard = String::new();
+    hard.push_str("Hard: ");
+    hard.push_str(&hard_desc);
+
+    let difficulty_options = vec![easy, normal, hard];
 
     let difficulty = Select::new("Choose your difficulty:", difficulty_options)
         .prompt()
         .unwrap()
         .to_string();
 
-    difficulty
+    let difficulty: Vec<&str> = difficulty.split(":").collect();
+
+    difficulty[0].to_string()
 }
 
 // The following functions all deal with the db file
