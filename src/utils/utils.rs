@@ -9,6 +9,13 @@ struct User {
     username: String,
 }
 
+#[derive(Debug)]
+struct Highscore {
+    guessing_game: i32,
+    rock_paper_scissor: i32,
+    hangman: i32,
+}
+
 fn create_profile() -> User {
     let player_name = loop {
         let name_input = Text::new("Before we begin, what is your name?")
@@ -51,8 +58,13 @@ pub fn create_db() -> Result<()> {
     let conn = Connection::open(path)?;
 
     conn.execute(
-        "CREATE TABLE IF NOT EXISTS user (username TEXT NOT NULL PRIMARY KEY)",
+        "CREATE TABLE IF NOT EXISTS User (username TEXT NOT NULL PRIMARY KEY)",
         (),
+    )?;
+
+    conn.execute(
+        "CREATE TABLE IF NOT EXISTS Highscores (username TEXT NOT NULL PRIMARY KEY, guessing_game INTEGER NOT NULL, rock_paper_scissor INTEGER NOT NULL, hangman INTEGER NOT NULL)",
+                ()
     )?;
 
     Ok(())
@@ -84,15 +96,25 @@ fn path_to_data_dir() -> PathBuf {
     dir_path
 }
 
-pub fn add_user_to_db() -> Result<()> {
+pub fn create_new_profile() -> Result<()> {
     let path = path_to_db();
     let conn = Connection::open(path)?;
 
     let user = create_profile();
+    let highscores = Highscore {
+        guessing_game: 0,
+        rock_paper_scissor: 0,
+        hangman: 0,
+    };
 
     conn.execute(
-        "INSERT INTO user (username) VALUES (?1)",
+        "INSERT INTO User (username) VALUES (?1)",
         (&user.username,),
+    )?;
+
+    conn.execute(
+        "INSERT INTO Highscores (guessing_game, rock_paper_scissor, hangman, username) VALUES (?1, ?2, ?3, ?4)",
+        (&highscores.guessing_game, &highscores.rock_paper_scissor, &highscores.hangman, &user.username),
     )?;
 
     Ok(())

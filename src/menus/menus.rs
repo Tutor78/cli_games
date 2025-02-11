@@ -1,6 +1,6 @@
 use crate::games;
 use inquire::Select;
-use crate::utils::utils::{add_user_to_db, recall_db_data};
+use crate::utils::utils::{create_new_profile, recall_db_data};
 
 struct Menu {
     title: String,
@@ -60,7 +60,7 @@ fn profile_menu() {
     match menu_choice {
         Ok(menu) => {
             if menu == "Create Profile" {
-                add_user_to_db().expect("Unable to add user to db");
+                create_new_profile().expect("Unable to add user to db");
             } else if menu == "Recall Profiles" {
                 recall_db_data().expect("Unable to retrieve db data");
             }
