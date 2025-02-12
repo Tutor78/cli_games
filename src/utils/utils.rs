@@ -41,18 +41,18 @@ pub fn play_again() -> bool {
     play_again
 }
 
-pub fn difficulty(easy_desc: &str, normal_desc: &str, hard_desc: &str) -> String {
+pub fn difficulty(difficulty_desc: Vec<&str>) -> String {
     let mut easy = String::new();
     easy.push_str("Easy: ");
-    easy.push_str(&easy_desc);
+    easy.push_str(difficulty_desc[0]);
 
     let mut normal = String::new();
     normal.push_str("Normal: ");
-    normal.push_str(&normal_desc);
+    normal.push_str(difficulty_desc[1]);
 
     let mut hard = String::new();
     hard.push_str("Hard: ");
-    hard.push_str(&hard_desc);
+    hard.push_str(difficulty_desc[2]);
 
     let difficulty_options = vec![easy, normal, hard];
 

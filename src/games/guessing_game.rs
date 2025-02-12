@@ -10,7 +10,9 @@ pub fn guessing_game() {
 
         let secret_num: i32;
 
-        let difficulty = difficulty("test", "test2", "test3");
+        let difficulty_desc = vec!["Test", "Test2", "Test3"];
+
+        let difficulty = difficulty(difficulty_desc);
 
         if difficulty == "Easy" {
             secret_num = rand::rng().random_range(1..=25);
